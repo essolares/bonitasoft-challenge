@@ -75,7 +75,7 @@ const Register = (props) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("CHEF");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -117,7 +117,7 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, email, password,name,phone).then(
+      AuthService.register(username, email, password,name,phone,role).then(
         (response) => {
           setMessage(`Welcome ${response.data.username}, please check your email`);
           setSuccessful(true);
@@ -213,14 +213,11 @@ const Register = (props) => {
 
               <div className="form-group">
             <label htmlFor="role">Are you a Chef?</label>
-            <Input
-              type="role"
-              className="form-control"
-              name="role"
-              value={role}
-              onChange={onChangeRole}
-              validations={[required]}
-            />
+            <div >
+            <input onChange={onChangeRole}  type="radio" value="CHEF" name="role" defaultChecked /> Yes  
+            <input onChange={onChangeRole} type="radio" value="USER" name="role" /> No
+            </div>
+            
           </div>
 
               <div className="form-group mt-4">

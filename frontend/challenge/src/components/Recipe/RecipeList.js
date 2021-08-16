@@ -218,7 +218,7 @@ const RecipesList = () => {
       </Modal>
 
       <Modal isOpen={isOpen3} closeModal={closeModal3}>
-        <AddComment className="mt-4" selectedId={selectedId} />
+        <AddComment className="mt-4" selectedId={selectedId} refreshList={refreshList} />
       </Modal>
 
     </div>
