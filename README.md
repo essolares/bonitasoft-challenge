@@ -14,11 +14,21 @@ This website allow us to have a record of recipes, we have three types of users 
 
 We can register in the main page, and login to get access to our board.
 
-## Sample images
+#### Sample images
 
 ![Alt text](/images/img.jpg?raw=true "Home")
 ![Alt text](/images/img1.jpg?raw=true "Register")
 ![Alt text](/images/img2.jpg?raw=true "LogIn")
 ![Alt text](/images/img3.jpg?raw=true "Admin")
+![Alt text](/images/img4.jpg?raw=true "User")
+![Alt text](/images/img5.jpg?raw=true "Chef")
+
+## Technical Details
+
+- Database: Mysql
+- Backend: Java / Spring Boot JPA
+- Frontend: ReactJS / Bootstrap
+- Secured with JWT
+
 
 
