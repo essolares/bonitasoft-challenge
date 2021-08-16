@@ -4,17 +4,16 @@ import { useTable } from "react-table";
 import Modal from '../Modal'
 import { useModal } from '../../Hooks/useModal'
 import UserDataService from "../../services/user.service";
+import RemoveUser from "./RemoveUser.js";
 
 const UserList = () => {
     const currentUser = AuthService.getCurrentUser();
     const [users, setUsers] = useState([]);
     const [isOpen1, openModal1, closeModal1] = useModal(false);
     const [selectedId, setSelectedId] = useState('');
-    const [showUserBoard, setShowUserBoard] = useState(currentUser.roles.some(role => role['name'] === 'USER') || false);
-    const [showChefBoard, setShowChefBoard] = useState(currentUser.roles.some(role => role['name'] === 'CHEF') || false);
     const [showAdminBoard, setShowAdminBoard] = useState(currentUser.roles.some(role => role['name'] === 'ADMIN') || false);
-    const recipesRef = useRef();
-    recipesRef.current = users;
+    const usersRef = useRef();
+    usersRef.current = users;
 
     useEffect(() => {
         retrieveUsers();
@@ -35,11 +34,17 @@ const UserList = () => {
 
     const refreshList = () => {
         retrieveUsers();
+        closeModal1();
     };
 
-    const deleteUser = (rowIndex) => {
-        //const id = recipesRef.current[rowIndex].id;
-    };
+    const deleteUser= (rowIndex) => {
+        const id = usersRef.current[rowIndex].id;
+        setSelectedId(id);
+        openModal1();
+      };
+
+  const [isOpen3, openModal3, closeModal3] = useModal(false);
+    
     const columns = useMemo(
         () => [
             {
@@ -95,7 +100,7 @@ const UserList = () => {
     });
     return (
         <div className="">
-      <div className="col-md-12 list mt-4">
+            <div className="col-md-12 list mt-4">
                 <table
                     className="table table-striped table-bordered recipe-table"
                     {...getTableProps()}
@@ -127,12 +132,15 @@ const UserList = () => {
                     </tbody>
                 </table>
                 <div>
-        <span><i className="far fa-edit"></i> Edit&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span><i className="fas fa-trash"></i> Delete&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span><i className="fas fa-comment-medical"></i> Add Comment&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span><i className="fas fa-comment"></i> View Comments&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        </div>
+                    <span><i className="far fa-edit"></i> Edit&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span><i className="fas fa-trash"></i> Delete&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span><i className="fas fa-comment-medical"></i> Add Comment&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span><i className="fas fa-comment"></i> View Comments&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
             </div>
+            <Modal isOpen={isOpen1} closeModal={closeModal1}>
+                <RemoveUser className="mt-4" selectedId={selectedId} refreshList={refreshList}/>
+            </Modal>
         </div>
     )
 }

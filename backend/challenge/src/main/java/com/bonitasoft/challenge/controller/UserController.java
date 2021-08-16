@@ -18,6 +18,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * REST API FOR USERS, allow to receive POST and GET request to interact with the database tables.
@@ -138,4 +140,15 @@ public class UserController {
         return userService.findOne(username);
     }
 
+    /**
+     * deleteuser -
+     * Delete user from database
+     * DELETE request.
+     * ADMIN role required.
+     */
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value="/deleteuser", method = RequestMethod.DELETE)
+    public String deleteuser(@RequestBody Map<String, Long> userId){
+        return userService.delete(userId.get("userId"));
+    }
 }

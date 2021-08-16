@@ -14,6 +14,7 @@ const RecipesList = () => {
   const [isOpen1, openModal1, closeModal1] = useModal(false);
   const [isOpen2, openModal2, closeModal2] = useModal(false);
   const [isOpen3, openModal3, closeModal3] = useModal(false);
+  const [isOpen4, openModal4, closeModal4] = useModal(false);
   const [selectedId, setSelectedId] = useState('');
   const [showUserBoard, setShowUserBoard] = useState(currentUser.roles.some(role => role['name'] === 'USER') || false);
   const [showChefBoard, setShowChefBoard] = useState(currentUser.roles.some(role => role['name'] === 'CHEF') || false);
@@ -24,8 +25,7 @@ const RecipesList = () => {
 
   useEffect(() => {
     retrieveRecipes();
-  },[]);
-  
+  },[recipesRef]);
 
   const retrieveRecipes = () => {  
     if (showUserBoard || showAdminBoard) {
@@ -50,6 +50,7 @@ const RecipesList = () => {
   };
 
   const refreshList = () => {
+    setSelectedId('')
     retrieveRecipes();
   };
 
@@ -66,12 +67,13 @@ const RecipesList = () => {
   };
 
   const openRecipe = (rowIndex) => {
-    //const id = recipesRef.current[rowIndex].id;
-    //props.history.push("/recipes/" + id);
+    
   };
 
   const deleteRecipe = (rowIndex) => {
-    //const id = recipesRef.current[rowIndex].id;
+    const id = recipesRef.current[rowIndex].id;
+    setSelectedId(id);
+    openModal4();
   };
 
   const onChangeSearchIngredient = (e) => {

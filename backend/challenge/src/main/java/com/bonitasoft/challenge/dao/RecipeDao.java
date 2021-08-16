@@ -16,4 +16,5 @@ public interface RecipeDao extends CrudRepository<Recipe, Long> {
     Recipe findRecipeByName(String name);
     List<Recipe> findAllByUserId(Long userId);
     List<Recipe> findByIngredientsIgnoreCaseContaining(String ingredient);
+    List<Recipe> deleteByUserId(Long userId);
 }

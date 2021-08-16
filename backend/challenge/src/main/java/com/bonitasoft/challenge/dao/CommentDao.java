@@ -14,4 +14,5 @@ import java.util.List;
 public interface CommentDao extends CrudRepository<Comment, Long> {
     List<Comment> findAllByUserId(Long userId);
     List<Comment> findByRecipeId(Long recipeId);
+    List<Comment> removeByUserId(Long userId);
 }

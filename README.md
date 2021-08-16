@@ -38,6 +38,8 @@ Database Tables
 
 ### BACKEND
 
+Backend folder
+
 #### 1- Create and set your database in backend project
 
 Set variables in Application.properties file
@@ -66,6 +68,12 @@ This create our tables for the first time and create our rest API services.
 This create our allowed roles and the admin user.
 
 ### FRONTEND
+
+Backend folder
+#### 1- Go to the project folder: cd challenge
+
+#### 1- Run de app
+```npm start```
 
 
 

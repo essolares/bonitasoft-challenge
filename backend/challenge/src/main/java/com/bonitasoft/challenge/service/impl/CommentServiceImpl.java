@@ -66,7 +66,6 @@ public class CommentServiceImpl implements CommentService {
     }
 
     public List<Comment> findByRecipeId(Long recipeId){
-        System.out.println("------------------" + recipeId);
         return commentDao.findByRecipeId(recipeId);
     }
 }

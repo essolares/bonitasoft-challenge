@@ -69,7 +69,6 @@ const vphone = (value) => {
 const Register = (props) => {
   const form = useRef();
   const checkBtn = useRef();
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -117,7 +116,7 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, email, password,name,phone,role).then(
+      AuthService.register(username, email, password, name, phone, role).then(
         (response) => {
           setMessage(`Welcome ${response.data.username}, please check your email`);
           setSuccessful(true);
@@ -139,13 +138,13 @@ const Register = (props) => {
   return (
     <div className="col-md-12">
       <div className="card card-container mt-1 pt-3">
-      <div className="d-flex flex-row " >
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-        <h3 className="mx-5">Create Account</h3>
+        <div className="d-flex flex-row " >
+          <img
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            alt="profile-img"
+            className="profile-img-card"
+          />
+          <h3 className="mx-5">Create Account</h3>
         </div>
 
         <Form onSubmit={handleRegister} ref={form}>
@@ -212,17 +211,17 @@ const Register = (props) => {
               </div>
 
               <div className="form-group">
-            <label htmlFor="role">Are you a Chef?</label>
-            <div >
-            <input onChange={onChangeRole}  type="radio" value="CHEF" name="role" defaultChecked /> Yes  
-            <input onChange={onChangeRole} type="radio" value="USER" name="role" /> No
-            </div>
-            
-          </div>
+                <label htmlFor="role">Are you a Chef?</label>
+                <div >
+                  <input onChange={onChangeRole} type="radio" value="CHEF" name="role" defaultChecked /> Yes
+                  <input onChange={onChangeRole} type="radio" value="USER" name="role" /> No
+                </div>
+
+              </div>
 
               <div className="form-group mt-4">
                 <button className="btn btn-info btn-block">
-                <i className="bi bi-box-arrow-right"></i>    Sign Up</button>
+                  <i className="bi bi-box-arrow-right"></i>    Sign Up</button>
               </div>
             </div>
           )}

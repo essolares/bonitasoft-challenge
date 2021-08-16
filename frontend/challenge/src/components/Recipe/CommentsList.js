@@ -1,52 +1,38 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import CommentDataService from "../../services/comment.service";
 import { useTable } from "react-table";
-import AuthService from "../../services/auth.service";
-import EventBus from "../../common/EventBus";
 
 const CommentsList = ({recipeId}) => {
   const [comments, setComments] = useState([]);
-  const [showUserBoard, setShowUserBoard] = useState(false);
-  const [showChefBoard, setShowChefBoard] = useState(false);
-  const [showAdminBoard, setShowAdminBoard] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
   const commentRef = useRef();
   commentRef.current = comments;
 
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      setCurrentUser(user);
-      setShowUserBoard(user.roles.some( role => role['name'] === 'USER' ));
-      setShowChefBoard(user.roles.some( role => role['name'] === 'CHEF' ));
-      setShowAdminBoard(user.roles.some( role => role['name'] === 'ADMIN' ));
-    }
+    if (recipeId !== '') retrieveComments();
+  },[recipeId]);
 
-    EventBus.on("logout", () => {
-      logOut();
-    });
+  function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
 
-    return () => {
-      EventBus.remove("logout");
-    };
-  }, []);
-
-  const logOut = () => {
-    AuthService.logout();
-    setShowUserBoard(false);
-    setShowChefBoard(false);
-    setShowAdminBoard(false);
-    setCurrentUser(undefined);
-  };
-
-
-  useEffect(() => {
-    retrieveComments();
-  }, [recipeId]);
+    return [month, day, year].join('-');
+}
 
   const retrieveComments = () => {
     CommentDataService.getCommentsByRecipe(recipeId)
       .then((response) => {
+        if (response.data){
+          response.data.map(element => {
+            element.date = formatDate(element.date);
+            return element;
+          });
+        }
         setComments(response.data);
       })
       .catch((e) => {
@@ -57,6 +43,10 @@ const CommentsList = ({recipeId}) => {
   const columns = useMemo(
     () => [
       {
+        Header: "Recipe",
+        accessor: "recipe.name",
+      },
+      {
         Header: "Comment",
         accessor: "comment",
       },
@@ -66,7 +56,7 @@ const CommentsList = ({recipeId}) => {
       },
       {
         Header: "User",
-        accessor: "id",
+        accessor: "user.username",
       }
     ],
     []

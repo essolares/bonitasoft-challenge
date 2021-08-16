@@ -1,10 +1,12 @@
 package com.bonitasoft.challenge.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import com.bonitasoft.challenge.dao.CommentDao;
+import com.bonitasoft.challenge.dao.RecipeDao;
 import com.bonitasoft.challenge.dao.UserDao;
+import com.bonitasoft.challenge.model.Comment;
+import com.bonitasoft.challenge.model.Recipe;
 import com.bonitasoft.challenge.model.Role;
 import com.bonitasoft.challenge.model.User;
 import com.bonitasoft.challenge.dto.UserDto;
@@ -17,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * User Service interface implementation to get database data.
@@ -31,6 +34,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private CommentDao commentDao;
+
+    @Autowired
+    private RecipeDao recipeDao;
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
@@ -62,9 +71,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return userDao.findByUsername(username);
     }
 
+    @Transactional
     @Override
     public User save(UserDto user) {
-
         User nUser = user.getUserFromDto();
         nUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 
@@ -75,4 +84,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         nUser.setRoles(roleSet);
         return userDao.save(nUser);
     }
+
+    @Transactional
+    public String delete(Long id){
+        Optional<User> nUser = userDao.findById(id);
+        List<Comment> del = commentDao.removeByUserId(id);
+        List<Recipe> del2 = recipeDao.deleteByUserId(id);
+        userDao.delete(nUser.get());
+        return "Deleted";
+    }
+
 }
