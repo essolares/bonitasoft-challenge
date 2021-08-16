@@ -72,8 +72,20 @@ This create our allowed roles and the admin user.
 Backend folder
 #### 1- Go to the project folder: cd challenge
 
-#### 1- Run de app
-```npm start```
+#### 2- In the project directory, you can run:
+```
+npm install
+# or
+yarn install
+```
+Compiles for development
+```
+npm start
+# or
+yarn start
+```
+
+#### 3 - Open [http://localhost:8081](http://localhost:8081) to view it in the browser.
 
 
 
