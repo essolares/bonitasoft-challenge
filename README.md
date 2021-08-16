@@ -24,11 +24,51 @@ We can register in the main page, and login to get access to our board.
 ![Alt text](/images/img5.jpg?raw=true "Chef")
 
 ## Technical Details
-
 - Database: Mysql
 - Backend: Java / Spring Boot JPA
 - Frontend: ReactJS / Bootstrap
-- Secured with JWT
+- Secured with JWT / Spring security
+
+Database Tables
+- Users
+- Roles
+- User_roles
+- Recipes
+- Comments
+
+### BACKEND
+
+#### 1- Create and set your database in backend project
+
+Set variables in Application.properties file
+```
+spring.datasource.url=jdbc:mysql://{host}:{port}/{database}
+spring.datasource.username=user
+spring.datasource.password=password
+```
+
+#### 2- Configure spring security
+Set security configuration variables in Application.properties file
+```
+jwt.token.validity={token time}
+jwt.signing.key={sign key}
+jwt.authorities.key={auth key}
+jwt.token.prefix={type of access token}
+jwt.header.string={Header}
+```
+
+#### 3- Build and compile spring project challenge
+
+#### 4- Run ChallengeApplication.
+This create our tables for the first time and create our rest API services.
+
+#### 5- Run file: /db/script.sql
+This create our allowed roles and the admin user.
+
+### FRONTEND
+
+
+
 
 
 

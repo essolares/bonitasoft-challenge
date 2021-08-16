@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version: 08/15/2021
  */
 @SpringBootApplication
-public class SpringRoleJwtApplication {
+public class ChallengeApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SpringRoleJwtApplication.class, args);
+        SpringApplication.run(ChallengeApplication.class, args);
     }
 }
