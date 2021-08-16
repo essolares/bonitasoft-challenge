@@ -17,4 +17,8 @@ We can register in the main page, and login to get access to our board.
 ## Sample images
 
 ![Alt text](/images/img.jpg?raw=true "Home")
+![Alt text](/images/img1.jpg?raw=true "Register")
+![Alt text](/images/img2.jpg?raw=true "LogIn")
+![Alt text](/images/img3.jpg?raw=true "Admin")
+
 
