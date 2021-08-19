@@ -1,5 +1,5 @@
-# bonitasoft-challenge
-## BonitaSoft Challenge
+# SPRING JWT REACT Challenge
+##  Edgar Salazar
 
 ## Project Description
 
